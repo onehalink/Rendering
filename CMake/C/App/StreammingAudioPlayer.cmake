@@ -1,0 +1,34 @@
+set(STREAMMING_AUDIO_PLAYER_TARGET_NAME "StreammingAudioPlayer")
+
+set(STREAMMING_AUDIO_PLAYER_SOURCE_DIR "${C_APP_TARGETS_ROOT_DIR}${STREAMMING_AUDIO_PLAYER_TARGET_NAME}/Source/")
+
+
+set(
+    STREAMMING_AUDIO_PLAYER_ALL_SOURCE_FILES
+
+    ${STREAMMING_AUDIO_PLAYER_SOURCE_DIR}EntryPoint.c
+)
+
+source_group(TREE "${STREAMMING_AUDIO_PLAYER_SOURCE_DIR}../" FILES ${STREAMMING_AUDIO_PLAYER_ALL_SOURCE_FILES})
+
+
+# has some denpendencies on Windows OS
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_executable(
+        ${STREAMMING_AUDIO_PLAYER_TARGET_NAME}
+
+        ${STREAMMING_AUDIO_PLAYER_ALL_SOURCE_FILES}
+    )
+
+    target_link_libraries(
+        ${STREAMMING_AUDIO_PLAYER_TARGET_NAME}
+        PRIVATE
+        ${ENGINE_TARGET_NAME}
+    )
+
+    target_include_directories(
+        ${STREAMMING_AUDIO_PLAYER_TARGET_NAME}
+        PRIVATE
+        ${ENGINE_INCLUDE_DIR}
+    )
+endif()
